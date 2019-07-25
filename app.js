@@ -6,12 +6,15 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const hbs = require('hbs');
+const flash = require('connect-flash');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
+const recipesRouter = require('./routes/recipes');
+const apiRouter = require('./routes/api');
 
 const app = express();
 
@@ -35,6 +38,8 @@ app.use(session({
   }
 }));
 
+app.use(flash());
+
 app.use((req, res, next) => {
   app.locals.currentUser = req.session.currentUser;
   next();
@@ -54,6 +59,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
+app.use('/recipes', recipesRouter);
+app.use('/api', apiRouter);
 
 // -- 404 and error handler
 
