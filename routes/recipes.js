@@ -13,20 +13,18 @@ router.get('/create', isNotLoggedIn, (req, res, next) => {
   res.render('recipes/create');
 });
 
-router.use((req) => {
-  console.log(req.body);
-});
-
 router.post('/create', isNotLoggedIn, parser.single('photo'), async (req, res, next) => {
   const { title, level, cuisine, duration } = req.body;
-  const image = req.file.secure_url;
+  const coordinates = [41.385063, 2.173404];
+  // const image = req.file.secure_url;
   try {
     const recipe = await Recipe.create({
       title,
       level,
       cuisine,
       duration,
-      image
+      // image,
+      'location.coordinates': coordinates
     });
     const recipeId = recipe._id;
     const userId = req.session.currentUser._id;

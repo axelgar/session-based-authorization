@@ -30,4 +30,13 @@ router.post('/recipes/:id/delete', async (req, res, next) => {
   res.json({ message: 'Ok' });
 });
 
+router.get('/recipes', async (req, res, next) => {
+  try {
+    const recipes = await Recipe.find();
+    res.json(recipes);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

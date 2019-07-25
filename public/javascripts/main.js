@@ -45,7 +45,29 @@ const main = () => {
     addEventsToDelete();
   });
 
-  // Delete recipe
+  // Mapbox
+  mapboxgl.accessToken = 'pk.eyJ1IjoiYXhlbGdhciIsImEiOiJjanJidGd1OHQxM2ZnM3psODZ0MGp6aHA3In0.HAa6u5vBRdbnFrXuFNtGOw';
+  const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/dark-v10',
+    zoom: 8
+  });
+
+  axios.get('/api/recipes')
+    .then((response) => {
+      const coordinates = response.data[0].location.coordinates.reverse();
+      new mapboxgl.Marker()
+        .setLngLat(coordinates)
+        .addTo(map);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  navigator.geolocation.getCurrentPosition((position) => {
+    console.log(position.coords);
+    map.setCenter([position.coords.longitude, position.coords.latitude]);
+  });
 };
 
 window.addEventListener('load', main);

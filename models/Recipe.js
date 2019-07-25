@@ -33,8 +33,17 @@ const recipeSchema = new Schema({
   },
   image: {
     type: String
+  },
+  location: {
+    type: {
+      type: String,
+      default: 'Point'
+    },
+    coordinates: [Number]
   }
 });
+
+recipeSchema.index({ location: '2dsphere' });
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
 
