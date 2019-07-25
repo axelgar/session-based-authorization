@@ -1,4 +1,4 @@
-<form action="/recipes/create" method="POST">
+<form action="/recipes/create" method="POST" enctype="multipart/form-data">
   <label for="title">title</label>
   <input type="text" name="title" id="title" required>
   <select name="level" id="level">
@@ -10,5 +10,6 @@
   <input type="text" name="cuisine" id="cuisine" required>
   <label for="duration">Duration</label>
   <input type="number" name="duration" id="duration">
+  <input type="file" name="photo" />
   <button type="submit">Add Recipe to my account</button>
 </form>

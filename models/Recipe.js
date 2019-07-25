@@ -22,10 +22,6 @@ const recipeSchema = new Schema({
     type: String,
     enum: ['Breakfast', 'Dish', 'Snack', 'Drink', 'Dessert', 'Other']
   },
-  image: {
-    type: String,
-    default: 'https://images.media-allrecipes.com/images/75131.jpg'
-  },
   duration: {
     type: Number,
     min: 0
@@ -34,6 +30,9 @@ const recipeSchema = new Schema({
   created: {
     type: Date,
     default: new Date()
+  },
+  image: {
+    type: String
   }
 });
 
